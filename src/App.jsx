@@ -8,8 +8,11 @@ import { Testimonials } from "./components/testimonials";
 import { Team } from "./components/Team";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
+import Login from "./components/login/login"
 import "./App.css";
-
+import { createBrowserRouter,RouterProvider} from "react-router-dom"
+import Signup  from './components/login/signup.jsx'
+import ProfileSelection from "./components/ProfileSelection.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -20,16 +23,33 @@ const App = () => {
   useEffect(() => {
     setLandingPageData(JsonData);
   }, []);
-
-  return (
-    <div>
-      <Navigation />
+  const router=createBrowserRouter([
+    {
+      path:'/login',
+      element:<Login />
+    },
+    {
+      path:'/ProfileSelection',
+      element:<ProfileSelection />
+    },
+    {
+      path:'/signup',
+      element:<Signup />
+    },
+    {
+      path:"/",
+      element:<> <Navigation />
       <Header data={landingPageData.Header} />
       <Features data={landingPageData.Features} />
       <About data={landingPageData.About} />
       <Services data={landingPageData.Services} />
       <Testimonials data={landingPageData.Testimonials} />
-      <Team data={landingPageData.Team} />
+      <Team data={landingPageData.Team} /></>
+    },
+  ])
+  return (
+    <div>
+      <RouterProvider router={router} />
     </div>
   );
 };
