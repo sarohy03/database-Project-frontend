@@ -28,30 +28,37 @@ function Signup() {
   const handleInput = (event) => {
     setvalues((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value, // Remove the unnecessary array brackets
+      [event.target.name]: event.target.value,
     }));
   };
 
   const handleSumbit = (event) => {
     event.preventDefault();
     setErrors(signupValidation(Values));
-    if(errors.name === '' && errors.email === '') {
+  
+    if (errors.name === '' && errors.email === '') {
       axios.post('http://localhost:8800/signup', Values)
         .then(res => {
-          navigate('/ProfileSelection'); // Use navigate function to redirect
+          navigate('/ProfileSelection');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          if (err.response && err.response.status === 400) {
+            alert('Email already exists. Please use a different email.');
+          } else {
+            console.log(err);
+          }
+        });
     }
   };
-
+  
   return (
     <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: 'linear-gradient(to right, #6a11cb, #2575fc)' }}>
       <div className="bg-white p-3 rounded w-25">
         <h2><strong>Sign up</strong></h2>
         <form action="" onSubmit={handleSumbit}>
           <div className="mb-3">
-            <label htmlFor="name"><strong>name</strong></label>
-            <input type="text" placeholder="Enter Email" name="name" onChange={handleInput} className="form-control rounded-0" />
+            <label htmlFor="name"><strong>Name</strong></label>
+            <input type="text" placeholder="Enter Name" name="name" onChange={handleInput} className="form-control rounded-0" />
           </div>
           {errors.name && <span className="text-danger">{errors.name}</span>}
           <div className="mb-3">

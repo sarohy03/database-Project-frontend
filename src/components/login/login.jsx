@@ -32,20 +32,30 @@ function Login() {
 	};
 	const handleSumbit = (event) => {
 		event.preventDefault();
-		setErrors(loginValidation(Values));
-		if( errors.email === '') {
+		
+		const validationErrors = loginValidation(Values);
+		setErrors(validationErrors);
+	
+
+		if (!errors.email && !errors.password) {
 			axios.post('http://localhost:8800/login', Values)
-			  .then(res => {
-				if(res.data ==="Succuss"){
-				navigate('/'); // Use navigate function to redirect
-				}
-				else{
-					alert("No record existed")
-				}
-			  })
-			  .catch(err => console.log(err));
-		  }
+				.then(res => {
+					if (res.data === "Success") {
+						navigate('/ProfileSelection'); // Use navigate function to redirect
+					} else {
+						alert("No record existed");
+					}
+				})
+				.catch(err =>{
+					if (err.response && err.response.status === 401) {
+						alert("Invalid email or password");
+					} else {
+						console.log(err);
+					}
+				});
+		}
 	};
+	
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center vh-100"

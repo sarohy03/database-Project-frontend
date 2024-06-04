@@ -7,7 +7,7 @@ export const loadStyles = (href) => {
     document.head.appendChild(link);
   };
   
-  export const unloadStyles = (id) => {
+export const unloadStyles = (id) => {
     const link = document.getElementById(id);
     if (link) {
       document.head.removeChild(link);
