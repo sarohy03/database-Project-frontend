@@ -1,0 +1,65 @@
+/* ProfileSelection.css */
+.full-height {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    .full-height {
+      flex-direction: row;
+    }
+  }
+  
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .w-100 {
+    width: 100%;
+  }
+  
+  .p-3 {
+    padding: 1rem;
+  }
+  
+  .bg-light-custom {
+    background-color: #f8f9fa;
+  }
+  
+  .bg-secondary-custom {
+    background-color: #6c757d;
+  }
+  
+  .text-large {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-white {
+    color: #fff;
+  }
+  
+  .card-padding {
+    padding: 2rem;
+  }
+  
+  .clickable-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 30px; 
+  }
+  
+  .clickable-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  

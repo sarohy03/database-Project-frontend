@@ -12,7 +12,7 @@ import Login from "./components/login/login"
 import "./App.css";
 import { createBrowserRouter,RouterProvider} from "react-router-dom"
 import Signup  from './components/login/signup.jsx'
-import ProfileSelection from "./components/ProfileSelection.jsx";
+import ProfileSelection from "./components/Profileselection/ProfileSelection.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,

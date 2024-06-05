@@ -39,6 +39,8 @@ function Signup() {
     if (errors.name === '' && errors.email === '') {
       axios.post('http://localhost:8800/signup', Values)
         .then(res => {
+          const userId = res.data.userId; // Get the user ID from the response
+          localStorage.setItem('userId', userId); // Store the user ID in local storage
           navigate('/ProfileSelection');
         })
         .catch(err => {

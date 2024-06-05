@@ -30,6 +30,7 @@ function Login() {
 			[event.target.name]: [event.target.value],
 		}));
 	};
+
 	const handleSumbit = (event) => {
 		event.preventDefault();
 		
@@ -61,7 +62,7 @@ function Login() {
 			className="d-flex justify-content-center align-items-center vh-100"
 			style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}
 		>
-			<div className="bg-white p-3 rounded w-25">
+			<div className="bg-white p-3 rounded w-25 ">
 				<h2>
 					<strong>Log in</strong>
 				</h2>
