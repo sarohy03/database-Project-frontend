@@ -2,57 +2,71 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./ProfileSelection.css"; // Import the CSS file
 import axios from "axios";
+
 function ProfileSelection() {
-	const handleClick = () => {
+	const handleClick = (userType) => {
 		const userId = localStorage.getItem('userId');
-		
-		if (userId) {
+		if (!userId) {
+		  alert('User ID not found.');
+		  return;
+		}
+	
+		if (userType === 'Freelancer') {
+		  // First, insert the user profile
 		  axios.post('http://localhost:8800/profileSelection', { userId })
 			.then(res => {
-			  console.log(res.data.message);  
+			  console.log(res.data.message);
+			  // Then, update the user type
+			  return axios.post('http://localhost:8800/profileSelectionType', { userId, userType });
+			})
+			.then(res => {
+			  console.log(res.data.message);
 			})
 			.catch(err => {
 			  console.error(err);
-			  alert('Error creating profile.');
+			  alert('Error creating profile or updating user type.');
+			});
+		} else if (userType === 'Client') {
+		  // Only update the user type
+		  axios.post('http://localhost:8800/profileSelectionType', { userId, userType })
+			.then(res => {
+			  console.log(res.data.message);
+			})
+			.catch(err => {
+			  console.error(err);
+			  alert('Error updating user type.');
 			});
 		} else {
-		  alert('User ID not found.');
+		  alert('Invalid user type.');
 		}
 	  };
   return (
     <div className="full-height">
-<nav id="menu" className="navbar navbar-default navbar-fixed-top">
-      <div className="container">
-        <div className="navbar-header">
-          <button
-            type="button"
-            className="navbar-toggle collapsed"
-            data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1"
-          >
-            <span className="sr-only">Toggle navigation</span>
-
-          </button>
-          <Link className="navbar-brand page-scroll" to="/">
-            FreelancerPro
-          </Link>
+      <nav id="menu" className="navbar navbar-default navbar-fixed-top">
+        <div className="container">
+          <div className="navbar-header">
+            <button
+              type="button"
+              className="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+            >
+              <span className="sr-only">Toggle navigation</span>
+            </button>
+            <Link className="navbar-brand page-scroll" to="/">
+              FreelancerPro
+            </Link>
+          </div>
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
         </div>
-
-        <div
-          className="collapse navbar-collapse"
-          id="bs-example-navbar-collapse-1"
-        >
-        </div>
-      </div>
-    </nav>
+      </nav>
       <div className="flex-center bg-light-custom w-100 p-3">
-        <Link to="/" className="text-large" onClick={handleClick}>
+        <Link to="/" className="text-large" onClick={() => handleClick('Freelancer')}>
           <div
             className="clickable-card bg-secondary-custom text-center card-padding"
             style={{ width: "20rem", margin: "auto" }}
           >
             <div className="card-body">
-
               <div className="text-large">
                 <h3 className="text-white">
                   Join as <br />
@@ -64,7 +78,7 @@ function ProfileSelection() {
         </Link>
       </div>
       <div className="flex-center bg-secondary-custom w-100 p-3">
-        <Link to="/freelancer" className="text-large" onClick={handleClick}>
+        <Link to="/freelancer" className="text-large" onClick={() => handleClick('Client')}>
           <div
             className="clickable-card bg-light-custom text-center card-padding"
             style={{ width: "20rem", margin: "auto" }}
