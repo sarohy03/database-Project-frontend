@@ -54,7 +54,7 @@ function Signup() {
   };
   
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: 'linear-gradient(to right, #6a11cb, #2575fc)' }}>
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: 'linear-gradient(to right, #6a11cb, #2575fc)', marginTop:"-30px"  }}>
       <div className="bg-white p-3 rounded w-25">
         <h2><strong>Sign up</strong></h2>
         <form action="" onSubmit={handleSumbit}>

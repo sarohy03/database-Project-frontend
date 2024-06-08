@@ -1,0 +1,52 @@
+/* style.css */
+
+body {
+    padding-top: 30px; /* To ensure content is not hidden behind navbar */
+  }
+
+  .d {
+    /* Gradient from light gray to dark gray */
+    /* background: linear-gradient(to right, #ffffff, mediumaquamarine); */
+    /* If you want to add some transparency */
+    /* background: linear-gradient(to right, rgba(189,195,199,0.8), rgba(44,62,80,0.8)); */
+  }
+  
+.panel-heading
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+};
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-form .form-group label {
+    font-weight: bold;
+  }
+  
+  .profile-form .form-control {
+    border-radius: 5px;
+  }
+  
+  .profile-form .btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

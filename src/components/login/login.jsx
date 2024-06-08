@@ -3,6 +3,7 @@ import { loadStyles, unloadStyles } from "./loadstyle";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import loginValidation from "./loginValidation";
+import "./styles.css"
 import axios from "axios";
 
 const bootstrapCssUrl =
@@ -60,9 +61,9 @@ function Login() {
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center vh-100"
-			style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}
+			style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)", marginTop:"-30px" }}
 		>
-			<div className="bg-white p-3 rounded w-25 ">
+			<div className="bg-white p-3 rounded w-25 rounded_corners">
 				<h2>
 					<strong>Log in</strong>
 				</h2>

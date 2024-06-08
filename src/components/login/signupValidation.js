@@ -19,9 +19,6 @@ function signupValidation(values) {
       errors.name = '';
 
     }
-  
-    
-  
     return errors;
   }
   

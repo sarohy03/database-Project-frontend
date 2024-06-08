@@ -10,35 +10,14 @@ function ProfileSelection() {
 		  alert('User ID not found.');
 		  return;
 		}
-	
-		if (userType === 'Freelancer') {
-		  // First, insert the user profile
-		  axios.post('http://localhost:8800/profileSelection', { userId })
-			.then(res => {
-			  console.log(res.data.message);
-			  // Then, update the user type
-			  return axios.post('http://localhost:8800/profileSelectionType', { userId, userType });
-			})
-			.then(res => {
-			  console.log(res.data.message);
-			})
-			.catch(err => {
-			  console.error(err);
-			  alert('Error creating profile or updating user type.');
-			});
-		} else if (userType === 'Client') {
-		  // Only update the user type
-		  axios.post('http://localhost:8800/profileSelectionType', { userId, userType })
-			.then(res => {
-			  console.log(res.data.message);
-			})
-			.catch(err => {
-			  console.error(err);
-			  alert('Error updating user type.');
-			});
-		} else {
-		  alert('Invalid user type.');
-		}
+		axios.post('http://localhost:8800/profileSelectionType', { userId, userType })
+		.then(res => {
+		  console.log(res.data.message);
+		})
+		.catch(err => {
+		  console.error(err);
+		  alert('Error updating user type.');
+		});
 	  };
   return (
     <div className="full-height">
@@ -61,7 +40,7 @@ function ProfileSelection() {
         </div>
       </nav>
       <div className="flex-center bg-light-custom w-100 p-3">
-        <Link to="/" className="text-large" onClick={() => handleClick('Freelancer')}>
+        <Link to="/FreelancerInformation" className="text-large" onClick={() => handleClick('Freelancer')}>
           <div
             className="clickable-card bg-secondary-custom text-center card-padding"
             style={{ width: "20rem", margin: "auto" }}
@@ -78,7 +57,7 @@ function ProfileSelection() {
         </Link>
       </div>
       <div className="flex-center bg-secondary-custom w-100 p-3">
-        <Link to="/freelancer" className="text-large" onClick={() => handleClick('Client')}>
+        <Link to="/clientPage" className="text-large" onClick={() => handleClick('Client')}>
           <div
             className="clickable-card bg-light-custom text-center card-padding"
             style={{ width: "20rem", margin: "auto" }}
