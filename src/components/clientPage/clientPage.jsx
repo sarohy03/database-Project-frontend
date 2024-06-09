@@ -1,101 +1,149 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "./clientPage.css";
+import { loadStyles, unloadStyles } from "../../components/login/loadstyle";
 
-import React from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
-import './style.css'; // Ensure this is the correct path to your CSS file
+const bootstrapCssUrl =
+    "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css";
 
-const clientPage = () => {
-  return (
-    <div>
-      <nav id="menu" className="navbar  navbar-fixed-top d ">
-        <div className="container ">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-            >
-              <span className="sr-only">Toggle navigation</span>
-            </button>
-            <Link className="navbar-brand page-scroll" to="/">
-              FreelancerPro
-            </Link>
-          </div>
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
-        </div>
-      </nav>
+const ClientPage = () => {
+    const [userName, setUserName] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [jobs, setJobs] = useState([]);
+    const [jobsLoading, setJobsLoading] = useState(true);
+    const [jobsError, setJobsError] = useState(null);
 
-      <div className="container" style={{ marginTop: '100px' }}>
-        <div className="row">
-          <div className="col-md-8 col-md-offset-2">
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                <h2 className="panel-title">Create Your Profile</h2>
-              </div>
-              <div className="panel-body">
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label>Title:</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Description:</label>
-                    <textarea
-                      className="form-control"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      required
-                    ></textarea>
-                  </div>
-                  <div className="form-group">
-                    <label>Hourly Rate:</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={hourlyRate}
-                      onChange={(e) => setHourlyRate(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Address:</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Skill:</label>
-                    <select
-                      className="form-control"
-                      value={skill}
-                      onChange={(e) => setSkill(e.target.value)}
-                      required
-                    >
-                      <option value="">Select a skill</option>
-                      <option value="graphic-designer">Graphic Designer</option>
-                      <option value="web-developer">Web Developer</option>
-                    </select>
-                  </div>
-                  <button type="submit" className="btn btn-custom">Create Profile</button>
-                </form>
-              </div>
+    useEffect(() => {
+        loadStyles(bootstrapCssUrl);
+
+        const userId = localStorage.getItem("userId"); 
+
+        if (userId) {
+            fetchUserName(userId);
+            fetchJobs(userId);
+        } else {
+            setError("User ID not found in local storage.");
+            setLoading(false);
+            setJobsLoading(false);
+        }
+
+        return () => {
+            unloadStyles("dynamic-bootstrap-css");
+        };
+    }, []);
+
+    const fetchUserName = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:8800/getUserName/${userId}`);
+
+            if (response.status === 200) {
+                setUserName(response.data.userName);
+            } else {
+                throw new Error("Failed to fetch user name");
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchJobs = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:8800/getJobs`, {
+                params: { userId }
+            });
+
+            if (response.status === 200) {
+                setJobs(response.data.jobs);
+            } else {
+                throw new Error("Failed to fetch jobs");
+            }
+        } catch (err) {
+            setJobsError(err.message);
+        } finally {
+            setJobsLoading(false);
+        }
+    };
+
+    const handleClick = () => {
+        alert("Button Clicked!");
+    };
+
+    return (
+        <div className="parent">
+            <nav className="custom-navbarr">
+                <div className="navbar-containerr">
+                    <div className="left">
+                        <div className="navbar-headerr">
+                            <Link className="navbar-brandd" to="/">
+                                FreelancerPro
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="right">
+                        <div className="navbar-menuu" id="navbar-menu">
+                            <button className="custom-button" onClick={handleClick}>
+                                My jobs
+                            </button>
+                            <button className="custom-button" onClick={handleClick}>
+                                My Contracts
+                            </button>
+                            <button className="custom-button" onClick={handleClick}>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div className="names">
+                <div className="containerrr">
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : error ? (
+                        <p>Error: {error}</p>
+                    ) : (
+                        <p>{userName}</p>
+                    )}
+                </div>
+                <div>
+                    <Link to="/PostingJob" className="custom-button">
+                        Post a Job
+                    </Link>
+                </div>
             </div>
-          </div>
+
+            <div className="Job_List">
+                <div className="container_job">
+                    {jobsLoading ? (
+                        <p>Loading jobs...</p>
+                    ) : jobsError ? (
+                        <p>Error: {jobsError}</p>
+                    ) : jobs.length === 0 ? (
+                        <p>No jobs available</p>
+                    ) : (
+                        <ul>
+                            {jobs.map((job) => (
+                                <li key={job.job_id} className="job-items">
+                                    <h3>{job.title}</h3>
+                                    <p><strong>Description:</strong> {job.description}</p>
+                                    <p><strong>Budget:</strong> ${job.budget}</p>
+                                    <p><strong>Status:</strong> {job.status}</p>
+                                    <p><strong>Created At:</strong> {new Date(job.created_at).toLocaleString()}</p>
+                                    <button className="custom-button" onClick={handleClick}>
+                                See purposals
+                            </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default ProfileForm;
+export default ClientPage;

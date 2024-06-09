@@ -14,6 +14,8 @@ import "./App.css";
 import { createBrowserRouter,RouterProvider} from "react-router-dom"
 import Signup  from './components/login/signup.jsx'
 import ProfileSelection from "./components/Profileselection/ProfileSelection.jsx";
+import ClientPage from "./components/clientPage/clientPage.jsx";
+import PostingJob from "./components/PostingJob/PostingJob.jsx"
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -30,8 +32,16 @@ const App = () => {
       element:<Login />
     },
     {
+      path:'/PostingJob',
+      element:<PostingJob />
+    },
+    {
       path:'/ProfileSelection',
       element:<ProfileSelection />
+    },
+    {
+      path:'/ClientPage',
+      element: <ClientPage />
     },
     {
       path:'/signup',
