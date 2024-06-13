@@ -20,7 +20,7 @@ const ProfileForm = () => {
     axios.post('http://localhost:8800/insertinprofile', profileData)
       .then(res => {
         if (res.status === 201) {
-          navigate('/'); 
+          navigate('/FreelancerPage'); 
         } else {
           alert("Profile creation failed");
         }

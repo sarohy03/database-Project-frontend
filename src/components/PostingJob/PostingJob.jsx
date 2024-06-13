@@ -19,7 +19,10 @@ const PostingJob = () => {
     axios.post('http://localhost:8800/jobcreation', profileData)
       .then(res => {
         if (res.status === 201) {
-          navigate('/ClientPage'); 
+          const jobId = res.data.jobId; // Get the user ID from the response
+          localStorage.setItem('jobId', jobId); // Store the user ID in local storage
+          console.log(jobId);
+          navigate('/CatagoriesSelection'); 
         } else {
           alert("Profile creation failed");
         }
@@ -56,7 +59,7 @@ const PostingJob = () => {
           <div className="col-md-8 col-md-offset-2">
             <div className="panel panel-default">
               <div className="panel-heading">
-                <h2 className="panel-title">Create Your Profile</h2>
+                <h2 className="panel-title">Post job</h2>
               </div>
               <div className="panel-body">
                 <form onSubmit={handleSubmit}>
@@ -89,7 +92,7 @@ const PostingJob = () => {
                       required
                     />
                   </div>
-                  <button type="submit" className="btn btn-custom">Create Profile</button>
+                  <button type="submit" className="btn btn-custom">Next</button>
                 </form>
               </div>
             </div>

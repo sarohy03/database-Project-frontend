@@ -103,10 +103,14 @@
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 16px; /* Font size */
   transition: background-color 0.3s ease; /* Smooth transition on hover */
+  z-index: 30000;
+  position: relative;
 }
 
 .custom-button:hover {
   background-color: #1a75b3;
+  color: white; /* Button text color */
+  text-decoration: none;
 }
 
 .names {

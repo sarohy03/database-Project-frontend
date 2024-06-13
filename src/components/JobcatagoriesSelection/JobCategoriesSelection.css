@@ -1,0 +1,59 @@
+/* JobCategoriesSelection.css */
+
+/* Navbar styles */
+.navbar {
+    background-color: #f8f9fa;
+    border: none;
+  }
+  
+  .navbar-brand {
+    color: #007bff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-brand:hover {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  .panel {
+    margin-top: 30px;
+  }
+  
+  .panel-title {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .panel-body {
+    padding: 20px;
+  }
+  
+  .form-groupp {
+    margin-bottom: 20px;
+  }
+  .formm{
+    display: flex;
+    flex-direction: column;
+   
+  }
+  
+
+  .form-check-inputt{
+    margin-top: 20px;
+  }
+  .btn-custom {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .btn-custom:hover {
+    background-color: #0056b3;
+  }
+  

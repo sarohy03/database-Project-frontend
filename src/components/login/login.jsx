@@ -3,7 +3,7 @@ import { loadStyles, unloadStyles } from "./loadstyle";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import loginValidation from "./loginValidation";
-import "./styles.css"
+import "./styles.css";
 import axios from "axios";
 
 const bootstrapCssUrl =
@@ -34,21 +34,30 @@ function Login() {
 
 	const handleSumbit = (event) => {
 		event.preventDefault();
-		
+
 		const validationErrors = loginValidation(Values);
 		setErrors(validationErrors);
-	
 
 		if (!errors.email && !errors.password) {
-			axios.post('http://localhost:8800/login', Values)
-				.then(res => {
-					if (res.data === "Success") {
-						navigate('/ProfileSelection'); // Use navigate function to redirect
+			axios
+				.post("http://localhost:8800/login", Values)
+				.then((res) => {
+					if (res.data.status === "Success") {
+						
+						const userId = res.data.userId; // Get the user ID from the response
+						localStorage.setItem("userId", userId);
+						if(res.data.user_type==='client'){
+
+							navigate("/ClientPage");
+						}
+						else{
+							navigate("/freelancerPage");
+						}
 					} else {
 						alert("No record existed");
 					}
 				})
-				.catch(err =>{
+				.catch((err) => {
 					if (err.response && err.response.status === 401) {
 						alert("Invalid email or password");
 					} else {
@@ -57,11 +66,14 @@ function Login() {
 				});
 		}
 	};
-	
+
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center vh-100"
-			style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)", marginTop:"-30px" }}
+			style={{
+				background: "linear-gradient(to right, #6a11cb, #2575fc)",
+				marginTop: "-30px",
+			}}
 		>
 			<div className="bg-white p-3 rounded w-25 rounded_corners">
 				<h2>
@@ -79,7 +91,9 @@ function Login() {
 							name="email"
 							className="form-control rounded-0"
 						/>
-            {errors.email && <span className="text-danger">{errors.email}</span>}
+						{errors.email && (
+							<span className="text-danger">{errors.email}</span>
+						)}
 					</div>
 					<div className="mb-3">
 						<label htmlFor="password">
@@ -91,8 +105,10 @@ function Login() {
 							onChange={handleInput}
 							name="password"
 							className="form-control rounded-0"
-              />
-              {errors.password && <span className="text-danger">{errors.password}</span>}
+						/>
+						{errors.password && (
+							<span className="text-danger">{errors.password}</span>
+						)}
 					</div>
 					<button type="submit" className="btn btn-success w-100 rounded 0">
 						Log in

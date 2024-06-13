@@ -16,6 +16,10 @@ import Signup  from './components/login/signup.jsx'
 import ProfileSelection from "./components/Profileselection/ProfileSelection.jsx";
 import ClientPage from "./components/clientPage/clientPage.jsx";
 import PostingJob from "./components/PostingJob/PostingJob.jsx"
+import JobCaragories from "./components/JobcatagoriesSelection/JobcatagoriesSelection.jsx";
+import FreelancerPage from './components/FreelancePage/FreelancerPage.jsx'
+import WriteProposal from "./components/WriteProposal/WriteProposal.jsx";
+import GetProposals from './components/GetProposals/GetProposals.jsx';
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -32,12 +36,28 @@ const App = () => {
       element:<Login />
     },
     {
+      path:'/GetProposals',
+      element:<GetProposals />
+    },
+    {
+      path:'/WriteProposal',
+      element:<WriteProposal />
+    },
+    {
+      path:'/FreelancerPage',
+      element:<FreelancerPage />
+    },
+    {
       path:'/PostingJob',
       element:<PostingJob />
     },
     {
       path:'/ProfileSelection',
       element:<ProfileSelection />
+    },
+    {
+      path:"/CatagoriesSelection",
+      element:<JobCaragories/>
     },
     {
       path:'/ClientPage',
